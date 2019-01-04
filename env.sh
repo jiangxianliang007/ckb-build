@@ -47,6 +47,6 @@ fi
 
 if [ $# -gt 0 ]; then
     echo 0
-    docker exec -it ${CONTAINER_NAME} "$@"
+    docker exec ${CONTAINER_NAME} "$@"
 fi
 
