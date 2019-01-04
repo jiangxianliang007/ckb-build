@@ -21,21 +21,26 @@ else
     fi
 fi
 
+docker pull ${DOCKER_IMAGE}
 SOURCE_DIR=`pwd`
 CONTAINER_NAME="ckb_build${SOURCE_DIR//\//_}"
 WORKDIR=/opt/ckb
-WORK_DIR=/opt/ckb/ckb
 
 docker ps | grep ${CONTAINER_NAME} > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "docker container ${CONTAINER_NAME} is already running"
+    echo "restart docker container ${CONTAINER_NAME} "
+    docker rm -f $(docker ps -a -q -f "name=${CONTAINER_NAME}")
+    docker run -d -it \
+           --volume ${SOURCE_DIR}:${WORKDIR} \
+           --workdir ${WORKDIR} \
+           --name ${CONTAINER_NAME} ${DOCKER_IMAGE}
 else
     echo "Start docker container ${CONTAINER_NAME} ..."
     docker rm ${CONTAINER_NAME} > /dev/null 2>&1
 
     docker run -d -it \
            --volume ${SOURCE_DIR}:${WORKDIR} \
-           --workdir ${WORK_DIR} \
+           --workdir ${WORKDIR} \
            --name ${CONTAINER_NAME} ${DOCKER_IMAGE} 
     sleep 3
 fi
@@ -44,3 +49,4 @@ if [ $# -gt 0 ]; then
     echo 0
     docker exec -it ${CONTAINER_NAME} "$@"
 fi
+
