@@ -17,6 +17,7 @@ jobs:
       run: |
        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
        source "$HOME/.cargo/env"
+       cargo --version
     - name: rust build
       run: |
         git clone https://github.com/axonweb3/axon.git
