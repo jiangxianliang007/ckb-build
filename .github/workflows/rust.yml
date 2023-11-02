@@ -1,0 +1,24 @@
+name: rust
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  push_to_registry:
+    name: rust build
+    runs-on: self-hosted
+    steps:
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y gcc-multilib && sudo apt-get install -y build-essential clang gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+    - name: install rust
+      run: |
+       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    - name: rust build
+      run: |
+        git clone https://github.com/axonweb3/axon.git
+        cd axon
+        cargo build --release
+        
