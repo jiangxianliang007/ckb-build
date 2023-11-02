@@ -1,0 +1,23 @@
+name: Docker Image CI2
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: self-hosted
+    steps:
+      - name: run ckb 
+        run: |
+          wget https://github.com/nervosnetwork/ckb/releases/download/v0.111.0/ckb_v0.111.0_x86_64-unknown-linux-gnu-portable.tar.gz
+          tar zxvf ckb_v0.111.0_x86_64-unknown-linux-gnu-portable.tar.gz
+          cd ckb_v0.111.0_x86_64-unknown-linux-gnu-portable
+          ./ckb init --chain mainnet
+          ./ckb run 
+          sleep 200
+          killall ckb
+
