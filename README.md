@@ -8,5 +8,5 @@ curl -o env.sh  https://raw.githubusercontent.com/jiangxianliang007/ckb-build/ma
 chmod +x env.sh
 ./env.sh make build
 ```
-## 编译成功后运行
+## 编译成功后运行..
 [运行CKB节点](https://github.com/nervosnetwork/ckb)
