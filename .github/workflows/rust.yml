@@ -20,6 +20,6 @@ jobs:
        cargo --version
        git clone https://github.com/nervosnetwork/ckb.git
        cd ckb
-       cargo build --release
+       make prod
        ./target/prod/ckb --version
         
