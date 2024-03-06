@@ -18,8 +18,8 @@ jobs:
        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
        source "$HOME/.cargo/env"
        cargo --version
-       git clone https://github.com/axonweb3/axon.git
-       cd axon
+       git clone https://github.com/nervosnetwork/ckb.git
+       cd ckb
        cargo build --release
-       ./target/prod/axon --version
+       ./target/prod/ckb --version
         
